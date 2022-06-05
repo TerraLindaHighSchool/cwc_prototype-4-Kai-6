@@ -6,50 +6,38 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRb;
     public float speed = 5.0f;
-    private GameObject focalPoint;
-    public bool hasPowerup = false;
-    private float powerupStrength = 15.0f;
+    private float jumpForce = 3.0f;
+    private float fireRate = 1.0f;
+    private float shotDamage = 5.0f;
+    private float critChance = 0;
+    private float critMult = 4;
+    private int shotCount = 1;
+    public float health = 100;
+    private float regen = 1;
+    private bool incendiary = false;
+    private bool explosive = false;
+    private bool lifeSteal = false;
+    public bool slowed = false;
+    public float fireDamage = 2;
     public GameObject powerupIndicator;
+    private GameManager gameManager;
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerRb = GetComponent<Rigidbody>();
-        focalPoint = GameObject.Find("FocalPoint");
     }
 
 
     void Update()
     {
-        float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
-        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+        if (!gameManager.gameActive) return;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Powerup"))
         {
-            hasPowerup = true;
-            Destroy(other.gameObject);
-            StartCoroutine(PowerupCountdownRoutine());
-            powerupIndicator.SetActive(true);
-        }
-    }
-
-    IEnumerator PowerupCountdownRoutine()
-    {
-        yield return new WaitForSeconds(7);
-        hasPowerup = false;
-        powerupIndicator.SetActive(false);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Enemy") && hasPowerup)
-        {
-            Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
-            enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
     }
 }

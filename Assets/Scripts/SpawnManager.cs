@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject powerupPrefab;
+    private GameManager gameManager;
     public TextMeshProUGUI waveCounter;
 
     private bool isStartingNextWave = false;
@@ -16,21 +17,12 @@ public class SpawnManager : MonoBehaviour
     public int waveNumber = 1;
     void Start()
     {
-
-        Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
-        SpawnEnemyWave(waveNumber);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     // Update is called once per frame
     void Update()
     {
-        enemyCount = FindObjectsOfType<Enemy>().Length;
-        if (enemyCount == 0)
-        {
-            waveNumber++;
-            SpawnEnemyWave(waveNumber);
-            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
-        }
-        waveCounter.text = "Wave: " + waveNumber;
+        if (!gameManager.gameActive) return;
     }
 
     private Vector3 GenerateSpawnPosition()
@@ -40,12 +32,5 @@ public class SpawnManager : MonoBehaviour
         Vector3 randomPos = new Vector3(spawnPosX, 0, spawnPosZ);
         return randomPos;
         
-    }
-    void SpawnEnemyWave(int enemiesToSpawn)
-    {
-        for(int i = 0; i < enemiesToSpawn; i++)
-        {
-            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
-        }
     }
 }

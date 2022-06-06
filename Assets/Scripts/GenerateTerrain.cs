@@ -27,6 +27,9 @@ public class GenerateTerrain : MonoBehaviour
     public float specWeightEx;
     public float gain;
     public NoiseType noiseType;
+    private int resolution;
+
+    private float[,] gradArray;
 
     public QualityMode quality;
     
@@ -34,34 +37,42 @@ public class GenerateTerrain : MonoBehaviour
 
     private void Start()
     {
+        resolution = terrain.terrainData.heightmapResolution;
     }
     public void GenerateHeights()
     {
+        
         ModuleBase moduleBase;
 
-        Billow billow = new Billow();
-        billow.Seed = seed;
-        billow.Frequency = frequency;
-        billow.Lacunarity = lunacarity;
-        billow.OctaveCount = octaveCount;
-        billow.Persistence = persistance;
-        billow.Quality = quality;
+        Billow billow = new Billow
+        {
+            Seed = seed,
+            Frequency = frequency,
+            Lacunarity = lunacarity,
+            OctaveCount = octaveCount,
+            Persistence = persistance,
+            Quality = quality
+        };
 
-        Perlin perlin = new Perlin();
-        perlin.Seed = seed+1;
-        perlin.Frequency = frequency;
-        perlin.Lacunarity = lunacarity;
-        perlin.OctaveCount = octaveCount;
-        perlin.Persistence = persistance;
-        perlin.Quality = quality;
+        Perlin perlin = new Perlin
+        {
+            Seed = seed + 1,
+            Frequency = frequency,
+            Lacunarity = lunacarity,
+            OctaveCount = octaveCount,
+            Persistence = persistance,
+            Quality = quality
+        };
 
-        RidgedMultifractal ridged = new RidgedMultifractal();
-        ridged.Seed = seed+2;
-        ridged.Frequency = frequency;
-        ridged.Lacunarity = lunacarity;
-        ridged.OctaveCount = octaveCount;
-        ridged.Gain = gain;
-        ridged.Quality = quality;
+        RidgedMultifractal ridged = new RidgedMultifractal
+        {
+            Seed = seed + 2,
+            Frequency = frequency,
+            Lacunarity = lunacarity,
+            OctaveCount = octaveCount,
+            Gain = gain,
+            Quality = quality
+        };
 
         switch (noiseType)
         {
@@ -91,10 +102,14 @@ public class GenerateTerrain : MonoBehaviour
                 break;
         }
         moduleBase = new ScaleBias(scaleFactor, bias, moduleBase);
-        Noise2D generator = new Noise2D(terrain.terrainData.heightmapResolution, terrain.terrainData.heightmapResolution, moduleBase);
+        Noise2D generator = new Noise2D(resolution, resolution, moduleBase);
         generator.GeneratePlanar(-1, 1, -1, 1, true);
         float[,] heights = generator.GetNormalizedData();
-        Debug.Log(heights[100,100]);
         terrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+    float map(float value, float currentMin, float currentMax, float newMin, float newMax)
+    {
+        return newMin + (value - currentMin) * (newMax - newMin) / (currentMax - currentMin);
     }
 }

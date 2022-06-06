@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LibNoise;
+using LibNoise.Generator;
+using LibNoise.Operator;
 
 public class PlaceTrees : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+
+
     void Start()
     {
         

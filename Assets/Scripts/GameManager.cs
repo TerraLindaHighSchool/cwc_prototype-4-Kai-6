@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Button startButton;
 
     private GenerateTerrain terrainGenScript;
+    private SpawnManager spawnManager;
 
     private Terrain terrain;
 
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         terrainGenScript = GameObject.Find("Terrain").GetComponent<GenerateTerrain>();
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         terrain = GameObject.Find("Terrain").GetComponent<Terrain>();
         startButton.onClick.AddListener(StartGame);
         StartGame();
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         placeTrees();
         placePlayer();
         gameActive = true;
+        spawnManager.StartCoroutine(spawnManager.spawnEnemies());
+        spawnManager.StartCoroutine(spawnManager.difficultyOverTime());
     }
 
     void placeTrees()

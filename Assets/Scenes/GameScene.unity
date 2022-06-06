@@ -373,10 +373,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 521744005}
+  bullet: {fileID: 3433214928691023238, guid: 6768614b68e7bd14e9e68329867b72ca, type: 3}
   walkSpeed: 10
+  fireDelay: 0
+  fireRate: 1
+  maxHealth: 100
   health: 100
-  fireDamage: 2
-  slowed: 0
+  regenCountdown: 5
+  regenDelay: 0.8
+  takenDamage: 0
 --- !u!143 &97388997
 CharacterController:
   m_ObjectHideFlags: 0
@@ -472,8 +477,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551bc5c2b3030ff499b426ce92081165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 6222764320306922433}
+  enemyDamage: 2
   speed: 5
-  walk: {fileID: 3770447776452596490}
+  myHealth: 50
+  attackDelay: 1
 --- !u!1 &131831142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,6 +2598,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836839563}
   m_CullTransparentMesh: 0
+--- !u!1 &845822173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 845822175}
+  - component: {fileID: 845822174}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &845822174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845822173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1178802c85ce014ba74fb2beaaef0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 0}
+  powerupPrefab: {fileID: 0}
+  minSpawnDelay: 2
+  maxSpawnDelay: 6
+  maxGroupSize: 4
+  enemyHealth: 50
+  difficultyTick: 10
+--- !u!4 &845822175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845822173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &847509721
 GameObject:
   m_ObjectHideFlags: 0
@@ -6716,7 +6774,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3772432109880093445}
   - component: {fileID: 6222764320306922433}
-  - component: {fileID: 3770447776452596490}
   m_Layer: 2
   m_Name: spider_pref
   m_TagString: Untagged
@@ -6724,21 +6781,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!111 &3770447776452596490
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3770447776452596489}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400006, guid: 7a538f29bad700d47a681a6568b943b4, type: 3}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &3770455761718441555
 GameObject:
   m_ObjectHideFlags: 0
@@ -7461,7 +7503,7 @@ Animator:
   m_GameObject: {fileID: 3770447776452596489}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7a538f29bad700d47a681a6568b943b4, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bac83b81f7b8b34d9a85e8243e683ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

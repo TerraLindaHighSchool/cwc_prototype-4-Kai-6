@@ -9,30 +9,31 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
 
     public GameObject cam;
+    public GameObject bullet;
 
     private Quaternion currentRotation = new Quaternion();
 
     public float walkSpeed = 4.0f;
     private float jumpVel = 10f;
     private float yVel = 0f;
-    private float fireRate = 1.0f;
+
+    public float fireDelay = 0f;
+    public float fireRate = 1.0f;
+
     private float shotDamage = 5.0f;
-    private float critChance = 0;
+    private float critChance = 5f;
     private float critMult = 4;
+    public float maxHealth = 100;
     public float health = 100;
-    private float regen = 1;
-    public float fireDamage = 0;
+    private float regen = 0.8f;
+    private float initialRegenDelay = 5f;
+    public float regenCountdown = 5f;
+    public float regenDelay = 0.8f;
     
     private int jumps = 2;
     private int jumpsLeft = 2;
-    private int shotCount = 1;
 
-
-    private bool incendiary = false;
-    private bool explosive = false;
-    private bool lifeSteal = false;
-    public bool slowed = false;
-    
+    public bool takenDamage = false;
 
     void Start()
     {
@@ -74,13 +75,40 @@ public class PlayerController : MonoBehaviour
 
         movement.y += yVel;
         charController.Move(movement * Time.deltaTime);
+
+        if(regenCountdown > 0)
+        {
+            regenCountdown -= Time.deltaTime;
+        }
+
+        if((health < maxHealth) && regenCountdown <= 0)
+        {
+            if (regenDelay <= 0)
+            {
+                health++;
+                regenDelay = regen;
+            }
+            else
+            {
+                regenDelay -= Time.deltaTime;
+            }
+        }
+
+        if(fireDelay > 0)
+        {
+            fireDelay -= Time.deltaTime;
+        }
+        if(Input.GetMouseButton(0))
+        {
+            if(fireDelay <= 0)
+            {
+                fireDelay = fireRate;
+                Instantiate(bullet, transform.position, transform.rotation);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Powerup"))
-        {
-            
-        }
     }
 }

@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float yVel = 0f;
 
     public float fireDelay = 0f;
-    public float fireRate = 1.0f;
+    public float fireRate = 0.5f;
 
     private float shotDamage = 5.0f;
     private float critChance = 5f;
@@ -105,7 +105,9 @@ public class PlayerController : MonoBehaviour
             if(fireDelay <= 0)
             {
                 fireDelay = fireRate;
-                Instantiate(bullet, cam.transform.position, cam.transform.rotation);
+                Vector3 camPos = new Vector3(cam.transform.position.x, cam.transform.position.y, cam.transform.position.z);
+                Vector3 spread = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), 0);
+                Instantiate(bullet, new Vector3(camPos.x, camPos.y-0.05f, camPos.z), cam.transform.rotation Quaternion.FromToRotation(Vector3.forward, spread));
             }
         }
     }

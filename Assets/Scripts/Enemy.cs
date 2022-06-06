@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public float myHealth = 50;
     public float attackDelay = 1.5f;
     private float attackCountdown = 1.5f;
+    public float distancefrom;
 
     void Start()
     {
@@ -53,12 +54,13 @@ public class Enemy : MonoBehaviour
         }
 
         moveVector.y += yVel;
-
-        if (Vector3.Distance(transform.position, player.transform.position) > 1)
+        distancefrom = Vector3.Distance(transform.position, player.transform.position);
+        if (Vector3.Distance(transform.position, player.transform.position) > 5)
         {
             anim.SetBool("Moving", true);
             controller.Move(moveVector * Time.deltaTime);
-        } else
+        } 
+        else
         {
             anim.SetBool("Moving", false);
             if(attackCountdown <= 0)

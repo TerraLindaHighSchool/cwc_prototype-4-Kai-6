@@ -7,8 +7,8 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     private GameManager gameManager;
-    public float minSpawnDelay = 2f;
-    public float maxSpawnDelay = 6f;
+    public float minSpawnDelay = 6f;
+    public float maxSpawnDelay = 10f;
     public float maxGroupSize = 4;
     private float groupSize = 3;
     private float delay;

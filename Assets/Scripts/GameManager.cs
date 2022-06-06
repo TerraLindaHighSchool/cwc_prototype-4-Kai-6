@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] trees;
 
     public Button startButton;
+    public Dropdown difficultyDropdown;
 
     private GenerateTerrain terrainGenScript;
     private SpawnManager spawnManager;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         placeTrees();
         placePlayer();
         gameActive = true;
+        spawnManager.enemyHealth *= difficultyDropdown.value+1;
         spawnManager.StartCoroutine(spawnManager.spawnEnemies());
         spawnManager.StartCoroutine(spawnManager.difficultyOverTime());
     }

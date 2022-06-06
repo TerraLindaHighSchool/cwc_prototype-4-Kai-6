@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
         movement.y += yVel;
         charController.Move(movement * Time.deltaTime);
 
+        //Stuff handling how life regen works; essentially if you are damaged the counter resets and you have to wait 5 more seconds.
         if(regenCountdown > 0)
         {
             regenCountdown -= Time.deltaTime;
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //This is how the gun works
         if(fireDelay > 0)
         {
             fireDelay -= Time.deltaTime;
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour
             if(fireDelay <= 0)
             {
                 fireDelay = fireRate;
-                Instantiate(bullet, transform.position, transform.rotation);
+                Instantiate(bullet, cam.transform.position, cam.transform.rotation);
             }
         }
     }

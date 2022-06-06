@@ -6,7 +6,6 @@ using TMPro;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject powerupPrefab;
     private GameManager gameManager;
     public float minSpawnDelay = 2f;
     public float maxSpawnDelay = 6f;

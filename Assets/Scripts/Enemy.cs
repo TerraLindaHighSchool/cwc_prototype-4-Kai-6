@@ -40,9 +40,7 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 playerPos = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
-        Vector3 turn = Vector3.RotateTowards(transform.forward, playerPos, rotSpeed*Time.deltaTime,0.5f);
-        Quaternion rot = Quaternion.FromToRotation(transform.forward, turn);
-        transform.rotation = rot;
+        transform.LookAt(playerPos);
 
         Vector3 moveVector = transform.forward * speed;
 
@@ -56,7 +54,7 @@ public class Enemy : MonoBehaviour
 
         moveVector.y += yVel;
 
-        if (Vector3.Distance(transform.position, player.transform.position) > 0.5)
+        if (Vector3.Distance(transform.position, player.transform.position) > 1)
         {
             anim.SetBool("Moving", true);
             controller.Move(moveVector * Time.deltaTime);

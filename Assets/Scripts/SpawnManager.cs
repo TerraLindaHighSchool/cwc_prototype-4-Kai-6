@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     public float enemyHealth = 50;
     public float difficultyTick = 240;
 
-    public bool peace = true;
+    public bool peace = false;
 
     private float spawnRange = 500;
     void Start()

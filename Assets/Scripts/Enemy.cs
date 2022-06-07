@@ -11,15 +11,15 @@ public class Enemy : MonoBehaviour
     private CharacterController controller;
     public Animator anim;
 
-    public float enemyDamage = 2;
+    public float enemyDamage = 5;
     public float speed;
-    private float rotSpeed = 60f;
     private float yVel;
     public float myHealth = 50;
     public float attackDelay = 1.5f;
-    private float attackCountdown = 1.5f;
+    private float attackCountdown = 3f;
     public float distancefrom;
 
+    public bool dead = false;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (dead) return;
         if (!gameManager.gameActive) return;
 
         if(attackCountdown > 0)
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour
 
         moveVector.y += yVel;
         distancefrom = Vector3.Distance(transform.position, player.transform.position);
-        if (Vector3.Distance(transform.position, player.transform.position) > 5)
+        if (Vector3.Distance(transform.position, player.transform.position) > 3)
         {
             anim.SetBool("Moving", true);
             controller.Move(moveVector * Time.deltaTime);
@@ -68,6 +69,7 @@ public class Enemy : MonoBehaviour
                 anim.SetTrigger("Attack");
                 player.GetComponent<PlayerController>().health -= enemyDamage;
                 player.GetComponent<PlayerController>().regenCountdown = 5f;
+                player.GetComponent<PlayerController>().audioSource.PlayOneShot(player.GetComponent<PlayerController>().hurt);
                 attackCountdown = attackDelay;
             }
         }
@@ -77,7 +79,7 @@ public class Enemy : MonoBehaviour
     {
         if(other.CompareTag("Bullet"))
         {
-            myHealth -= 10;
+            myHealth -= player.GetComponent<PlayerController>().shotDamage;
             Destroy(other);
             if(myHealth <= 0)
             {

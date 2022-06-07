@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2049121343854986505}
   - component: {fileID: 2049121343854986506}
   - component: {fileID: 2049121343854986508}
+  - component: {fileID: 1289657170}
   m_Layer: 2
   m_Name: Spooder
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049121343854986504}
-  m_LocalRotation: {x: -0, y: 0.74504197, z: -0, w: 0.6670177}
+  m_LocalRotation: {x: 0, y: 0.74503964, z: 0, w: 0.66702026}
   m_LocalPosition: {x: -0.014509983, y: 120.1624, z: -0.30559763}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 2897413272416431397}
   m_Father: {fileID: 0}
@@ -62,7 +63,7 @@ CharacterController:
   m_Radius: 0.1
   m_SlopeLimit: 45
   m_StepOffset: 0.15
-  m_SkinWidth: 0.01
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.103, z: 0}
 --- !u!114 &2049121343854986508
@@ -78,10 +79,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 5346971429064836577}
-  enemyDamage: 2
-  speed: 5
-  myHealth: 25
+  enemyDamage: 5
+  speed: 6
+  myHealth: 30
   attackDelay: 1
+  distancefrom: 0
+  dead: 0
+--- !u!65 &1289657170
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049121343854986504}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22768092, y: 0.12372273, z: 0.15}
+  m_Center: {x: 0, y: 0.083528966, z: 0.2}
 --- !u!1 &2898398263468137053
 GameObject:
   m_ObjectHideFlags: 0

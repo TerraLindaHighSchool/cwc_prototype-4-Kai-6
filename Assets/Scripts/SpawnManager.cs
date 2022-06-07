@@ -13,7 +13,9 @@ public class SpawnManager : MonoBehaviour
     private float groupSize = 3;
     private float delay;
     public float enemyHealth = 50;
-    public float difficultyTick = 10;
+    public float difficultyTick = 240;
+
+    public bool peace = true;
 
     private float spawnRange = 500;
     void Start()
@@ -21,7 +23,6 @@ public class SpawnManager : MonoBehaviour
         delay = Random.Range(minSpawnDelay, maxSpawnDelay);
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-    // Update is called once per frame
     void Update()
     {
     }
@@ -30,14 +31,40 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(delay);
-            groupSize = Mathf.RoundToInt(Random.Range(maxGroupSize-2, maxGroupSize));
-            for (int i = 0; i < groupSize; i++)
+            if (!peace)
             {
+                yield return new WaitForSeconds(delay);
+                groupSize = Mathf.RoundToInt(Random.Range(maxGroupSize - 2, maxGroupSize));
+                for (int i = 0; i < groupSize; i++)
+                {
+                    Vector3 randomPos = GenerateSpawnPosition();
+                    Instantiate(enemyPrefab, randomPos, enemyPrefab.transform.rotation);
+                }
+                delay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            } else
+            {
+                yield return new WaitForSeconds(delay);
+                groupSize = 1;
                 Vector3 randomPos = GenerateSpawnPosition();
                 Instantiate(enemyPrefab, randomPos, enemyPrefab.transform.rotation);
+                delay = Random.Range(minSpawnDelay, maxSpawnDelay);
             }
-            delay = Random.Range(minSpawnDelay, maxSpawnDelay);
+        }
+    }
+
+    public IEnumerator modeSwitch()
+    {
+        while (true)
+        {
+            if (!peace) {
+                yield return new WaitForSeconds(Random.Range(4 * 60, 6 * 60));
+                peace = true;
+            }
+            else
+            {
+                yield return new WaitForSeconds(Random.Range(60, 2 * 60));
+                peace = false;
+            }
         }
     }
 

@@ -38,6 +38,7 @@ public class GenerateTerrain : MonoBehaviour
     private void Start()
     {
         resolution = terrain.terrainData.heightmapResolution;
+        seed = Random.Range(0, 10000);
     }
     public void GenerateHeights()
     {
@@ -107,7 +108,13 @@ public class GenerateTerrain : MonoBehaviour
         float[,] heights = generator.GetNormalizedData();
         terrain.terrainData.SetHeights(0, 0, heights);
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
     float map(float value, float currentMin, float currentMax, float newMin, float newMax)
     {
         return newMin + (value - currentMin) * (newMax - newMin) / (currentMax - currentMin);

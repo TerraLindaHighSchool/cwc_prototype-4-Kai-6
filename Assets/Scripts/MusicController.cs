@@ -26,7 +26,6 @@ public class MusicController : MonoBehaviour
         while (currentlyPlaying.volume > 0)
             {
                 currentlyPlaying.volume -= (1 / fadeDuration) * Time.deltaTime;
-                Debug.Log("work");
                 yield return null;
             }
         if (currentlyPlaying.volume == 0)
@@ -54,7 +53,6 @@ public class MusicController : MonoBehaviour
 
         if (currentState != newState)
         {
-            Debug.Log("please");
             StartCoroutine(transition());
             currentState = newState;
         }

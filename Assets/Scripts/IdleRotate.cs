@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class IdleRotate : MonoBehaviour
 {
-    private float currentRotation = 0f;
     public float rotationRate = 5f;
     void Start()
     {

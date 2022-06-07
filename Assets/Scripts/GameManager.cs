@@ -59,8 +59,9 @@ public class GameManager : MonoBehaviour
         terrainGenScript.GenerateHeights();
         placeTrees();
         placePlayer();
+        player.GetComponent<PlayerController>().health = 100;
         gameActive = true;
-        spawnManager.enemyHealth *= difficultyDropdown.value+1;
+        spawnManager.enemyHealth = 30 * difficultyDropdown.value + 1;
         spawnManager.StartCoroutine(spawnManager.spawnEnemies());
         spawnManager.StartCoroutine(spawnManager.difficultyOverTime());
         spawnManager.StartCoroutine(spawnManager.modeSwitch());
@@ -73,8 +74,9 @@ public class GameManager : MonoBehaviour
         terrainGenScript.GenerateHeights();
         placeTrees();
         placePlayer();
+        player.GetComponent<PlayerController>().health = 100;
         gameActive = true;
-        spawnManager.enemyHealth *= difficultyDropdown.value + 1;
+        spawnManager.enemyHealth = 30 * difficultyDropdown.value + 1;
         spawnManager.StartCoroutine(spawnManager.spawnEnemies());
         spawnManager.StartCoroutine(spawnManager.difficultyOverTime());
         spawnManager.StartCoroutine(spawnManager.modeSwitch());
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
         titleScreen.SetActive(true);
         gameOverScreen.SetActive(true);
         gameActive = false;
+        player.GetComponent<PlayerController>().health = 100;
         Cursor.lockState = CursorLockMode.None;
         spawnManager.StopCoroutine(spawnManager.spawnEnemies());
         spawnManager.StopCoroutine(spawnManager.difficultyOverTime());

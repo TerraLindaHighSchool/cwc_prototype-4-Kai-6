@@ -83,6 +83,7 @@ public class Enemy : MonoBehaviour
             Destroy(other);
             if(myHealth <= 0)
             {
+                gameManager.score++;
                 Destroy(gameObject);
             }
         }

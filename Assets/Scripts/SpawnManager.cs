@@ -7,6 +7,8 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     private GameManager gameManager;
+    public float minSpawnDelayPeace = 10f;
+    public float maxSpawnDelayPeace = 15f;
     public float minSpawnDelay = 6f;
     public float maxSpawnDelay = 10f;
     public float maxGroupSize = 4;
@@ -47,7 +49,7 @@ public class SpawnManager : MonoBehaviour
                 groupSize = 1;
                 Vector3 randomPos = GenerateSpawnPosition();
                 Instantiate(enemyPrefab, randomPos, enemyPrefab.transform.rotation);
-                delay = Random.Range(minSpawnDelay, maxSpawnDelay);
+                delay = Random.Range(minSpawnDelayPeace, maxSpawnDelayPeace);
             }
         }
     }
@@ -57,7 +59,7 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             if (!peace) {
-                yield return new WaitForSeconds(Random.Range(4 * 60, 6 * 60));
+                yield return new WaitForSeconds(Random.Range(3 * 60, 5 * 60));
                 peace = true;
             }
             else

@@ -25,9 +25,11 @@ public class GameManager : MonoBehaviour
     private MusicController musicController;
     public GameObject healthBar;
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI scoreText;
 
     private Terrain terrain;
 
+    public float score = 0;
     public float treesToPlace = 1;
     void Start()
     {
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
         if (!gameActive) return;
         healthBar.GetComponent<RectTransform>().SetRight((player.GetComponent<PlayerController>().maxHealth - player.GetComponent<PlayerController>().health) * 5);
         healthText.text = "HP: " + player.GetComponent<PlayerController>().health + " / " + player.GetComponent<PlayerController>().maxHealth;
-
+        scoreText.text = "Score: " + score;
 
     }
 

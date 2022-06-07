@@ -18,7 +18,7 @@ public class MusicController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentlyPlaying.clip = dayPeace;
+        currentlyPlaying.clip = dayBattle;
     }
 
     public IEnumerator transition()
